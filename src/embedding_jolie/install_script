@@ -1,0 +1,6 @@
+#!/bin/bash
+wget https://www.jolie-lang.org/files/releases/jolie-1.7.0.jar
+sudo apt install -y default-jdk
+sudo apt install -y unzip
+java -jar jolie-1.7.0.jar
+echo 'export JOLIE_HOME="/usr/lib/jolie"' >> ~/.bash_profile
