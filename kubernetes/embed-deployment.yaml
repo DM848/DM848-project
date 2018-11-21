@@ -1,0 +1,24 @@
+# To create deployment in kubernetes cluster, run command:
+#	kubectl create -f embed-deployment
+
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: embed-deployment
+  labels:
+    app: embed
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: embed
+  template:
+    metadata:
+      labels:
+        app: embed
+    spec:
+      containers:
+      - name: nginx
+        image: klenow/cloud_server
+        ports:
+        - containerPort: 8000
