@@ -28,8 +28,8 @@ main
   println@Console( token )();
   
 
-    //currentTime@MyOutput()(time);
-    //print@Console("Time is " + time + "\n")();
+    currentTime@MyOutput()(time);
+    print@Console("Time is " + time + "\n")();
 
   
   sleep@Time( 10000 )();
