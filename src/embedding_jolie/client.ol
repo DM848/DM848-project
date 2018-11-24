@@ -12,7 +12,7 @@ RequestResponse:
 }
 
 outputPort MyOutput {
-Location: "socket://35.228.140.134:8080/"
+Location: "socket://35.228.198.20:8080/"
 Protocol: http
 Interfaces: MyIface
 }
@@ -28,8 +28,8 @@ main
   println@Console( token )();
   
 
-    currentTime@MyOutput()(time);
-    print@Console("Time is " + time + "\n")();
+    //currentTime@MyOutput()(time);
+    //print@Console("Time is " + time + "\n")();
 
   
   sleep@Time( 10000 )();
