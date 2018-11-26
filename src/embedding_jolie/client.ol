@@ -29,8 +29,8 @@ main
   println@Console( token )();
   
   
-  status@CloudServer()(status);
-   println@Console(status)();
+  //status@CloudServer()(status);
+   //println@Console(status)();
 
     //currentTime@MyOutput()(time);
     //print@Console("Time is " + time + "\n")();

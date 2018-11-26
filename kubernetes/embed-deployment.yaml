@@ -1,24 +1,21 @@
-# To create deployment in kubernetes cluster, run command:
-#	kubectl create -f embed-deployment
-
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: embed-deployment
+  name: jolie-deployer
   labels:
-    app: embed
+    app: jolie-deployer
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: embed
+      app: jolie-deployer
   template:
     metadata:
       labels:
-        app: embed
+        app: jolie-deployer
     spec:
       containers:
-      - name: nginx
-        image: klenow/cloud_server
+      - name: jolie-deployer
+        image: joelhandig/cloud_server
         ports:
         - containerPort: 8000
