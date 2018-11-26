@@ -7,5 +7,5 @@ interface CloudServerIface {
 RequestResponse:
   load(LoadRequest)(any),
   unload(any)(void),
-  status(any)(any)
+  status(void)(any)
 }

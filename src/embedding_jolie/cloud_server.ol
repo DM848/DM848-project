@@ -55,7 +55,8 @@ main
   } ]
   
   //see the status of a running servies. Under construction
-  [status(token)("status of service"){
-      println@Console("Status check")()
+  [status(token)(resp){
+      resp = "Here is the status from the server";
+      println@Console("Responding with status")()
       }]
 }
