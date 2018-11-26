@@ -53,4 +53,9 @@ main
     callExit@Runtime( global.map.(token) )();
     println@Console( "unloaded service: " + token )()
   } ]
+  
+  //see the status of a running servies. Under construction
+  [status(token)("status of service"){
+      println@Console("Status check")()
+      }]
 }
