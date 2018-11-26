@@ -12,7 +12,7 @@ RequestResponse:
 }
 
 outputPort MyOutput {
-Location: "socket://35.228.198.20:8080/"
+Location: "socket://35.228.66.168:8080/"
 //Location: "socket://localhost:8080"
 Protocol: http
 Interfaces: MyIface
@@ -29,8 +29,8 @@ main
   println@Console( token )();
   
   
-  //status@CloudServer()(status);
-   //println@Console(status)();
+  status@CloudServer()(status);
+   println@Console(status)();
 
     //currentTime@MyOutput()(time);
     //print@Console("Time is " + time + "\n")();
