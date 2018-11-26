@@ -56,7 +56,7 @@ main
   
   //see the status of a running servies. Under construction
   [status(token)(resp){
-      resp = "Here is the status from the server";
+      resp = "Here is the status from the server. This is new, to test CI";
       println@Console("Responding with status")()
       }]
 }
