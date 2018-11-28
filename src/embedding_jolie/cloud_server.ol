@@ -44,7 +44,7 @@ main
       .type = request.type,
       .filepath = filename
     } )( location );
-    token = new;
+    token = "some string that is not the token";//new;
     println@Console( "loaded service: " + token )();
     global.map.(token) = location
   } ]
