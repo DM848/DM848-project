@@ -37,10 +37,11 @@ main
       .content = request.program,
       .filename = filename
     } )();
+    /*
     install( RuntimeException =>
       println@Console( main.RuntimeException.stackTrace )()
     );
-    
+    */
     loadEmbeddedService@Runtime( {
       .type = request.type,
       .filepath = filename
