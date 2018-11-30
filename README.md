@@ -25,4 +25,7 @@ This is the one that we are building from now on (30 nov)
     4. Call `kubectl create -f deployment.yaml` and `kubectl create -f service.yaml`. This creates the whole service that the user asked for.
     5. Gets the IP address for the newly deployed jolie program. This could be gotten with `kubectl get services` some way. Returns this IP to the user.
 * The Dockerfile should be like the one from version 1, but in the `CMD` section, which is the command run when the image is run somewhere, should also embed the **user_jolie_program** when it starts up.
+
+Problems that we have not solved yet are:
+- If the user wants more then one replica, the deployment will be replicated. If we then load the jolie program in that deployment, we are not sure of which of the replicas the load balancer will choose, and it will only chose one of them. If the user tries to use the service, and is directed to a replica that does not have the jolie program loaded, then there will be a problem. This is why we need to embed the program when the docker image is started, but the docker image does not have access to that program.
     
