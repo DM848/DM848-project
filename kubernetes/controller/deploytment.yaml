@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubctl
+  labels:
+    app: kubctl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubctl
+  template:
+    metadata:
+      labels:
+        app: kubctl
+    spec:
+      containers:
+      - name: kubctl
+        image: klenow/kbctl
+        ports:
+        - containerPort: 8000
