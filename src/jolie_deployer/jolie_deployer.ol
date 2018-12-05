@@ -114,6 +114,9 @@ spec:
     substr.begin = 13;
     substr.end = 100;
     substring@StringUtils(substr)(res);
+    
+    //the answer returned to the caller
+    answer = res;
     //println@Console(res)();
     
     //println@Console("IP is now " + res)();
