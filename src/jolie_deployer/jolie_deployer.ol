@@ -73,15 +73,15 @@ spec:
     writeFile@File({.content = serviceString, .filename = "service.yaml"})()
     
     
-    //exec@Exec("kubectl create -f deployment.yaml")(response);
-    //println@Console(response)();
+    exec@Exec("kubectl create -f deployment.yaml")(response);
+    println@Console(response)();
     
-    //exec@Exec("kubectl create -f service.yaml")(response);
-    //print@Console(response)()
+    exec@Exec("kubectl create -f service.yaml")(response);
+    print@Console(response)()
     
     
-    //delete@File("deployment.yaml")();
-    //delete@File("service.yaml")()
+    delete@File("deployment.yaml")();
+    delete@File("service.yaml")()
         
     }
         
