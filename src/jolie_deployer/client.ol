@@ -5,7 +5,7 @@ include "file.iol"
 
 
 outputPort JolieDeployer {
-Location: "socket://35.228.108.92:8000/"
+Location: "socket://localhost:8000/"
 Protocol: sodep
 Interfaces: Jolie_Deployer_Interface
 }

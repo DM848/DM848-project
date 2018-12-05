@@ -135,7 +135,7 @@ spec:
     delete@File("deployment.yaml")();
     delete@File("service.yaml")();
     
-    answer = res
+    answer = string(res)
     }
         
         
