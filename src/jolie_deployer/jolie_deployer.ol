@@ -60,7 +60,7 @@ spec:
     for ( port in request.ports)
     {
         serviceString = serviceString + 
-"  - name: client
+"  - name: " + new + "
     port: "+ port +"
     targetPort: " + port + "\n"
 };
@@ -70,7 +70,7 @@ spec:
     app: " + token + "
   type: LoadBalancer\n";
     
-    writeFile@File({.content = serviceString, .filename = "service.yaml"})()
+    writeFile@File({.content = serviceString, .filename = "service.yaml"})();
     
     
     exec@Exec("kubectl create -f deployment.yaml")(response);
@@ -79,10 +79,11 @@ spec:
     exec@Exec("kubectl create -f service.yaml")(response);
     print@Console(response)()
     
+    /*
     
     delete@File("deployment.yaml")();
     delete@File("service.yaml")()
-        
+    */    
     }
         
     ]
