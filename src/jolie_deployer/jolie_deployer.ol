@@ -116,7 +116,7 @@ spec:
     substring@StringUtils(substr)(res);
     
     //the answer returned to the caller
-    answer = res;
+    
     //println@Console(res)();
     
     //println@Console("IP is now " + res)();
@@ -133,9 +133,9 @@ spec:
     
     //delete the yaml-files that are used
     delete@File("deployment.yaml")();
-    delete@File("service.yaml")()
+    delete@File("service.yaml")();
     
-    
+    answer = res
     }
         
         
