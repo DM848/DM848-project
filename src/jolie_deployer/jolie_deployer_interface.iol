@@ -1,4 +1,4 @@
-type LoadRequest:void {
+type UserLoadRequest:void {
   .user:string
   .name:string
   .program:string
@@ -9,7 +9,7 @@ type LoadRequest:void {
 interface Jolie_Deployer_Interface
 {
     RequestResponse:
-      load(LoadRequest)(any),
+      load(UserLoadRequest)(any),
       unload(any)(void)
 }
 
