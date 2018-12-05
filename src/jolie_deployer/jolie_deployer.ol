@@ -20,7 +20,7 @@ main
     
     [load(request)(answer){
         token = new;
-        println@Console("Im deploying, and i want " + #request.ports + " ports, it is " + request.ports)();
+        
         writeFile@File ({
       .content = 
 "apiVersion: apps/v1

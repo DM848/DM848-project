@@ -1,4 +1,6 @@
 type LoadRequest:void {
+  .user:string
+  .name:string
   .program:string
   .manifest:string
   .ports[1, *]: int
