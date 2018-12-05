@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: jolie-deployer
-        image: joelhandig/cloud_server
+        image: joelhandig/jolie_deployer
         ports:
         - containerPort: 8000
