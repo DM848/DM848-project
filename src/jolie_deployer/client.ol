@@ -1,5 +1,7 @@
 include "console.iol"
 include "jolie_deployer_interface.iol"
+include "file.iol"
+
 
 
 outputPort JolieDeployer {
@@ -12,10 +14,10 @@ Interfaces: Jolie_Deployer_Interface
 
 main
 {
-    
+    readFile@File( { .filename = "brilliantPrint.ol" } )( program );
     load@JolieDeployer({
       .manifest = "Jolie",
-      .program = "asdf",
+      .program = program,
       .ports[0] = 400
     })(response)
     
