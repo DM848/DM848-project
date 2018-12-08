@@ -1,3 +1,4 @@
+
 include "console.iol"
 include "exec.iol"
 include "jolie_deployer_interface.iol"
@@ -47,7 +48,7 @@ spec:
   template:
     metadata:
       labels:
-        app: " + token + "
+        app: " + token + "  
     spec:
       containers:
       - name: " + token + "
@@ -84,10 +85,10 @@ spec:
     
     
     //create new deployment and service
-    exec@Exec("kubectl create -f deployment.yaml")(response);
-    println@Console(response)();
-    exec@Exec("kubectl create -f service.yaml")(response);
-    print@Console(response)();
+    exec@Exec("kubectl create -f deployment.yaml")(execResponse);
+    println@Console(execResponse)();
+    exec@Exec("kubectl create -f service.yaml")(execResponse);
+    print@Console(execResponse)();
     
 
     //Following while-loop blocks until the kubernetes cluster
@@ -115,11 +116,6 @@ spec:
     substr.end = 100;
     substring@StringUtils(substr)(res);
     
-    //the answer returned to the caller
-    
-    //println@Console(res)();
-    
-    //println@Console("IP is now " + res)();
     
     //update the output port to point to the new wrapper
     MyOutput.location = "socket://" + res + ":8000";
@@ -135,21 +131,24 @@ spec:
     delete@File("deployment.yaml")();
     delete@File("service.yaml")();
     
-    answer = string(res)
-    }
-        
-        
-    //to be implemented
-    ]
+    answer.ip = string(res);
+    answer.token = token
+    }]
+    
     [unload(request)(){
-        println@Console("Im undeploying")()
-    }
+        println@Console("Im undeploying")();
+        
+        
+        //We need to get the token that was created when the program was loaded.
+        //for now, assume that the user has it.
+        
+        //NOTE maybe we should check that the program that should be undeployed
+        // matches one that exists, so check the tags/ip in the deployment
+        
+        exec@Exec("kubectl delete deployment deployment"+ request.token)();
+        exec@Exec("kubectl delete service service" + request.token)()
+    }]
     
-    ]
     
     
-    
-    //exec@Exec("kubectl version")(response);
-    
-    //print@Console(response)()
 }
