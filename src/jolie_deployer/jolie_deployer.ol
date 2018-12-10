@@ -50,7 +50,7 @@ metadata:
   labels:
     app: " + token + "
 spec:
-  replicas: 1
+  replicas: " + request.replicas + "
   selector:
     matchLabels:
       app: " + token + "

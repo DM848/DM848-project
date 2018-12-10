@@ -3,6 +3,7 @@ type UserLoadRequest:void {
   .name:string
   .program:string
   .manifest:string
+  .replicas:int
   .ports[1, *]: int
 }
 
