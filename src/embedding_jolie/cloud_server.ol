@@ -1,6 +1,6 @@
 include "runtime.iol"
 include "file.iol"
-include "cloud_server_iface.iol"
+include "cloud_server.iol"
 include "console.iol"
 include "time.iol"
 
