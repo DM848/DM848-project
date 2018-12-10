@@ -142,6 +142,7 @@ spec:
     delete@File("service.yaml")();
     
     
+    
     answer.ip = string(res);
     answer.token = token
     
@@ -158,6 +159,7 @@ spec:
     
     
     [unload(request)(){
+        
         println@Console("Im undeploying")();
         
         

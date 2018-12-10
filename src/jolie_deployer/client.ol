@@ -12,8 +12,8 @@ outputPort Log {
 
 
 outputPort JolieDeployer {
-//Location: "socket://35.228.37.179:8000/"
-Location: "socket://localhost:8000/"
+Location: "socket://35.228.37.179:8000/"
+//Location: "socket://localhost:8000/"
 Protocol: sodep
 Interfaces: Jolie_Deployer_Interface
 }
@@ -21,16 +21,6 @@ Interfaces: Jolie_Deployer_Interface
 
 main
 {
-    /*
-    //log action
-    logentry.service = "jolie-deployer";
-    logentry.info = "Loaded service, user: " + request.user;
-    logentry.level = 5;
-    
-    set@Log(logentry)(answer);
-    
-    println@Console(answer)()
-    */
     
     
     //read program from file, put in variable program
