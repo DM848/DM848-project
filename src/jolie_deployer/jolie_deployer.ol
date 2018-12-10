@@ -12,7 +12,7 @@ execution { sequential }    //maybe concurrent?
 
 
 outputPort LoggerService {
-    Location: "socket://localhost:8180/"        //where is the service?
+    Location: "socket://logger:8180/"        //where is the service?
     Protocol: http { .method = "post" }
     Interfaces: LoggerInterface
 }
@@ -118,7 +118,7 @@ spec:
         sleep@Time(1000)();
         println@Console("wating for IP...")()
     };
-    
+    println@Console(matches.group[1])();
     
     substr = matches.group[1];
     substr.begin = 13;
@@ -130,32 +130,36 @@ spec:
     MyOutput.location = "socket://" + res + ":8000";
     
     //send user program to newly created wrapper
+    /*
     load@MyOutput({
           .type = "Jolie",
           .program = request.program
     })(); 
-    
+    */
     
     //delete the yaml-files that were used
     delete@File("deployment.yaml")();
     delete@File("service.yaml")();
     
+    
+    
     answer.ip = string(res);
-    answer.token = token;
+    answer.token = token
     
-    
+    /*
     //log action
     logentry.service: "jolie-deployer";
     logentry.info: "Loaded service, user: " + request.user;
     logentry.level: 5; 
     set@LoggerService(logentry)()
-    
+    */
     
     }]
     
     
     
     [unload(request)(){
+        
         println@Console("Im undeploying")();
         
         
@@ -166,14 +170,15 @@ spec:
         // matches one that exists, so check the tags/ip in the deployment
         
         exec@Exec("kubectl delete deployment deployment"+ request.token)();
-        exec@Exec("kubectl delete service service" + request.token)();
+        exec@Exec("kubectl delete service service" + request.token)()
         
-        
+        /*
         //log action
         logentry.service: "jolie-deployer";
         logentry.info: "Unloaded service, user: " + request.user;
         logentry.level: 5; 
         set@LoggerService(logentry)()
+        */
     }]
     
     
