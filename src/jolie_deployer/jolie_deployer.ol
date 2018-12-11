@@ -61,7 +61,7 @@ spec:
     spec:
       containers:
       - name: " + token + "
-        image: joelhandig/cloud_server:latest
+        image: joelhandig/cloud_server
         ports:
         - containerPort: 8000\n",
       .filename = "deployment.yaml"
@@ -187,7 +187,7 @@ spec:
 
     //send user program to newly created wrapper
     load@MyOutput({
-          .program = request.program
+          .program = string(request.program)
     })(neverusethis);
 
 
@@ -197,7 +197,7 @@ spec:
 
 
 
-    answer.ip = string(pubIP);
+    answer.ip = string(PubIP);
     answer.token = token
 
     /*
