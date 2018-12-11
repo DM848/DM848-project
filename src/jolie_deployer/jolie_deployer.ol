@@ -122,10 +122,14 @@ spec:
     };
     //println@Console(matches.group[1])();
 
+    println@Console(matches.group[1])();
+
     substr = matches.group[1];
     substr.begin = 13;
     substr.end = 100;
     substring@StringUtils(substr)(PubIP);
+    
+    
 
 
 
@@ -179,12 +183,12 @@ spec:
 
 
     //update the output port to point to the new wrapper
-    MyOutput.location = "socket://" + PubIP + ":8000";
+    MyOutput.location = "socket://" + PubIP + ":8000/";
 
     //send user program to newly created wrapper
     load@MyOutput({
           .program = request.program
-    })();
+    })(neverusethis);
 
 
     //delete the yaml-files that were used
@@ -193,7 +197,7 @@ spec:
 
 
 
-    answer.ip = string(res);
+    answer.ip = string(pubIP);
     answer.token = token
 
     /*

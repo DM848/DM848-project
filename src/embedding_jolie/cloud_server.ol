@@ -36,7 +36,7 @@ main
       .filepath = filename
     } )( location );
 
-    println@Console( "loaded service: " + token )();
+    println@Console( "loaded service.")();
     response = "service loaded"
   }
 }
