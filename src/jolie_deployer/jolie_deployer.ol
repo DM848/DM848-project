@@ -98,10 +98,12 @@ spec:
     println@Console(execResponse)();
     exec@Exec("kubectl create -f service.yaml")(execResponse);
     print@Console(execResponse)();
-
-
+    
+    
+    
     //Following while-loop blocks until the kubernetes cluster
     //has allocated a new public ip. This usually takes 60 seconds
+    
     matches = 0;
     while (matches == 0)
     {
@@ -118,19 +120,68 @@ spec:
         sleep@Time(1000)();
         println@Console("wating for IP...")()
     };
-    println@Console(matches.group[1])();
+    //println@Console(matches.group[1])();
 
     substr = matches.group[1];
     substr.begin = 13;
     substr.end = 100;
-    substring@StringUtils(substr)(res);
+    substring@StringUtils(substr)(PubIP);
+
+
+
+    /*
+    //get the IP's of all pods that were started up
+    exec@Exec("kubectl describe pods -l app=" + token)(execResponse);
+    
+    println@Console("Response: " + string(execResponse))();
+    
+    
+    splitItem = string(execResponse);
+    splitItem.regex = "Name:";
+    
+    split@StringUtils(splitItem)(splitRes);
+    
+    
+    println@Console("Number of results: " + #splitRes.result)();
+    item.regex = "(?s).*(IP:             [0-9]*.[0-9]*.[0-9]*.[0-9]*)(?s).*";
+    for ( i = 0, i < #splitRes.result, i++)
+    {
+        item = splitRes.result[i];
+        match@StringUtils(item)(matches);
+        println@Console(matches.group[1])();
+        
+        
+        
+        if (string(matches.group[1]) != "")
+        {
+            substr = matches.group[1];
+            substr.begin = 16;
+            substr.end = 100;
+            substring@StringUtils(substr)(res);
+            
+            IP[#IP] = res
+        }
+    };
+    for (element in IP)
+    {
+        println@Console("IP Address of pod running: " + element)()
+        
+        //update the output port to point to the new wrapper
+        //MyOutput.location = "socket://" + element + ":8000"
+    
+        //send user program to newly created wrapper
+        load@MyOutput({
+              .program = request.program
+        })()
+        
+    };
+*/
 
 
     //update the output port to point to the new wrapper
-    MyOutput.location = "socket://" + res + ":8000";
+    MyOutput.location = "socket://" + PubIP + ":8000";
 
     //send user program to newly created wrapper
-
     load@MyOutput({
           .program = request.program
     })();
@@ -178,6 +229,12 @@ spec:
         logentry.level: 5;
         set@LoggerService(logentry)()
         */
+    }]
+    
+    
+    //answer if I am healthy
+    [health()(resp){
+        resp = "I am healthy!"
     }]
 
 

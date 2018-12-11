@@ -31,7 +31,7 @@ main
       .user = "Kurt",
       .name = "kursPrinterService",
       .manifest = "Jolie",
-      .replicas = 3,
+      .replicas = 2,
       .program = program,
       .ports[0] = 400
     })(response);
