@@ -10,7 +10,7 @@ RequestResponse:
 
 inputPort MyInput {
 Location: "socket://localhost:400/"
-Protocol: http
+Protocol: http {.format = "raw"}
 Interfaces: MyIface
 }
 

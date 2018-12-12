@@ -12,9 +12,9 @@ outputPort Log {
 
 
 outputPort JolieDeployer {
-Location: "socket://35.228.100.63:8000/"
+Location: "socket://35.228.114.154:8000/"
 //Location: "socket://localhost:8000/"
-Protocol: sodep
+Protocol: http
 Interfaces: Jolie_Deployer_Interface
 }
 
@@ -31,7 +31,7 @@ main
       .user = "Kurt",
       .name = "kursPrinterService",
       .manifest = "Jolie",
-      .replicas = 2,
+      .replicas = 1,
       .program = program,
       .ports[0] = 400
     })(response);

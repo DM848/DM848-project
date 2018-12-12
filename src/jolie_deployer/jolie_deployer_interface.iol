@@ -23,6 +23,6 @@ interface Jolie_Deployer_Interface
     RequestResponse:
       load(UserLoadRequest)(UserLoadResponse),
       unload(UserUnloadRequest)(void),
-      health(void)(string)
+      health(void)(undefined)
 }
 

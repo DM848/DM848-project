@@ -6,17 +6,17 @@ include "file.iol"
 include "time.iol"
 include "string_utils.iol"
 include "cloud_server_iface.iol"
-include "srv-logger.iol"
+//include "srv-logger.iol"
 
-execution { sequential }    //maybe concurrent?
+execution { concurrent }    //maybe concurrent?
 
-
+/*
 outputPort LoggerService {
     Location: "socket://logger:8180/"        //where is the service?
     Protocol: http { .method = "post" }
     Interfaces: LoggerInterface
 }
-
+*/
 
 outputPort MyOutput {
 //Location: "socket://35.228.66.168:8080/"
@@ -28,7 +28,7 @@ Interfaces: CloudServerIface
 
 inputPort Jolie_Deployer {
 Location: "socket://localhost:8000/"
-Protocol: sodep
+Protocol: http { .format = "raw" }
 Interfaces: Jolie_Deployer_Interface
 }
 
@@ -61,7 +61,7 @@ spec:
     spec:
       containers:
       - name: " + token + "
-        image: joelhandig/cloud_server
+        image: joelhandig/cloud_server:latest
         ports:
         - containerPort: 8000\n",
       .filename = "deployment.yaml"
@@ -132,56 +132,6 @@ spec:
 
 
 
-
-    /*
-    //get the IP's of all pods that were started up
-    exec@Exec("kubectl describe pods -l app=" + token)(execResponse);
-
-    println@Console("Response: " + string(execResponse))();
-
-
-    splitItem = string(execResponse);
-    splitItem.regex = "Name:";
-
-    split@StringUtils(splitItem)(splitRes);
-
-
-    println@Console("Number of results: " + #splitRes.result)();
-    item.regex = "(?s).*(IP:             [0-9]*.[0-9]*.[0-9]*.[0-9]*)(?s).*";
-    for ( i = 0, i < #splitRes.result, i++)
-    {
-        item = splitRes.result[i];
-        match@StringUtils(item)(matches);
-        println@Console(matches.group[1])();
-
-
-
-        if (string(matches.group[1]) != "")
-        {
-            substr = matches.group[1];
-            substr.begin = 16;
-            substr.end = 100;
-            substring@StringUtils(substr)(res);
-
-            IP[#IP] = res
-        }
-    };
-    for (element in IP)
-    {
-        println@Console("IP Address of pod running: " + element)()
-
-        //update the output port to point to the new wrapper
-        //MyOutput.location = "socket://" + element + ":8000"
-
-        //send user program to newly created wrapper
-        load@MyOutput({
-              .program = request.program
-        })()
-
-    };
-*/
-
-
     //update the output port to point to the new wrapper
     MyOutput.location = "socket://" + PubIP + ":8000/";
 
@@ -193,8 +143,8 @@ spec:
     println@Console(message)();
 
     //delete the yaml-files that were used
-    delete@File("deployment.yaml")();
-    delete@File("service.yaml")();
+    //delete@File("deployment.yaml")();
+    //delete@File("service.yaml")();
 
 
 
@@ -239,7 +189,8 @@ spec:
 
     //answer if I am healthy
     [health()(resp){
-        resp = "I am healthy!"
+        println@Console("health check")();
+        resp = "i'm alive\n"
     }]
 
 
