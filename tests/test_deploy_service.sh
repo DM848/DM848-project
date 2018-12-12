@@ -36,7 +36,7 @@ message=$(curl http://$ip:400/print --max-time 5 2> /dev/null)
 
 if [ "$message" != "This is from server" ]; then 
     echo "Service undeployed" 
-    exit ret;
+    exit $ret;
 else 
     echo "Message not undeployed!"
     exit 1;
