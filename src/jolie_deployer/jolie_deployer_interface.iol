@@ -11,6 +11,7 @@ type UserUnloadRequest:void {
     .user:string
     .token:string
     .ip:string
+    .gracePeriod:int
 }
 
 type UserLoadResponse:void {

@@ -15,6 +15,7 @@ main{
     request.token = args[0];
     request.ip = "asdf";
     request.user = "joel";
+    request.gracePeriod = 4;
 
     unload@JolieDeployer(request)()
 
