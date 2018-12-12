@@ -16,6 +16,7 @@ type UserUnloadRequest:void {
 type UserLoadResponse:void {
     .ip:string
     .token:string
+    .gracePeriod:int
 }
 
 interface Jolie_Deployer_Interface
