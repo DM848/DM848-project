@@ -12,8 +12,8 @@ outputPort Log {
 
 
 outputPort JolieDeployer {
-Location: "socket://35.228.114.154:8000/"
-//Location: "socket://localhost:8000/"
+//Location: "socket://35.228.114.154:8000/"
+Location: "socket://localhost:8000/"
 Protocol: http
 Interfaces: Jolie_Deployer_Interface
 }
@@ -22,9 +22,8 @@ Interfaces: Jolie_Deployer_Interface
 main
 {
 
-
     //read program from file, put in variable program
-    readFile@File( { .filename = "brilliantPrint.ol" } )( program );
+    readFile@File( { .filename = "user_server.ol" } )( program );
 
     //load program in the cluster
     load@JolieDeployer({
