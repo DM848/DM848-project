@@ -188,8 +188,9 @@ spec:
     //send user program to newly created wrapper
     load@MyOutput({
           .program = string(request.program)
-    })(neverusethis);
+    })(message);
 
+    println@Console(message)();
 
     //delete the yaml-files that were used
     delete@File("deployment.yaml")();
