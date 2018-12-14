@@ -22,7 +22,7 @@ Interfaces: CloudServerIface
 
 
 outputPort Jolie_Deployer {
-Location: "socket://35.228.198.20:8000/"
+Location: "socket://jolie-deployer:8000/"
 //Location: "socket://localhost:8000/"
 Protocol: http
 Interfaces: User_Service_Interface
