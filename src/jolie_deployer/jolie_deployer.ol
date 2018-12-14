@@ -66,7 +66,7 @@ spec:
     spec:
       containers:
       - name: " + token + "
-        image: joelhandig/cloud_server:callback
+        image: joelhandig/cloud_server:latest
         imagePullPolicy: Always
         env:
         - name: TOKEN
