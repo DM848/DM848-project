@@ -17,13 +17,21 @@ main
 
     //read program from file, put in variable program
     readFile@File( { .filename = args[0] } )( program );
+    
+    replicas = 1;
+    if (! is_defined(args[1]))
+    {
+        replicas = 1
+    } else{
+        replicas = int(args[1])
+    };
 
     //load program in the cluster
     load@JolieDeployer({
       .user = "Kurt",
       .name = "kurtsPrinterService",
       .manifest = "Jolie",
-      .replicas = 3,
+      .replicas = replicas,
       .program = program,
       .ports[0] = 4000
     })(response);

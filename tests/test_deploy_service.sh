@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-resp=$(jolie load.ol user_server.ol)
+resp=$(jolie load.ol user_server.ol 1)
 #resp=$(echo "35.228.186.130 3aaad5a3-b361-489b-8ff1-93b39742569b")
 stringarray=($resp)
 #echo ${stringarray[0]}
@@ -17,7 +17,7 @@ echo $token
 #token=$(jolie load.ol testserver.ol)
 #echo $token
 
-message=$(curl http://$ip:400/print 2> /dev/null)
+message=$(curl http://$ip:4000/print 2> /dev/null)
 #echo http://$ip:400/print
 echo $message
 jolie unload.ol $token
