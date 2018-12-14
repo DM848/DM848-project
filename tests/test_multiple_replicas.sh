@@ -18,7 +18,7 @@ echo $message
 
 
 # One might think, that for i in {1..10} would be a prettier 
-# way to write this.
+# way to write this. In that case, one would be correct!
 for i in  1 2 3 4 5 6 7 8 9
 do
 {
