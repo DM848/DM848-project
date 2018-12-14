@@ -4,7 +4,7 @@ include "file.iol"
 
 
 outputPort JolieDeployer {
-Location: "socket://35.228.114.154:8000/"
+Location: "socket://35.228.198.20:8000/"
 //Location: "socket://localhost:8000/"
 Protocol: http
 Interfaces: Jolie_Deployer_Interface
@@ -21,15 +21,14 @@ main
     //load program in the cluster
     load@JolieDeployer({
       .user = "Kurt",
-      .name = "kursPrinterService",
+      .name = "kurtsPrinterService",
       .manifest = "Jolie",
-      .replicas = 1,
+      .replicas = 3,
       .program = program,
-      .ports[0] = 400
+      .ports[0] = 4000
     })(response);
 
     //print the returned IP address and token of the new service
     println@Console(response.ip + " " + response.token)()
-
 
 }

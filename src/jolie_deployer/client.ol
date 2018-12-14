@@ -5,7 +5,7 @@ include "srv-logger.iol"
 
 
 outputPort Log {
-    Location: "socket://35.228.93.73:8180/"
+    Location: "socket://35.228.198.20:8180/"
     Protocol: http { .method = "post" }
     Interfaces: LoggerInterface
 }
@@ -32,7 +32,7 @@ main
       .manifest = "Jolie",
       .replicas = 1,
       .program = program,
-      .ports[0] = 400
+      .ports[0] = 4000
     })(response);
 
     //print the returned IP address of the new service

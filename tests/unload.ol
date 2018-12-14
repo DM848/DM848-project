@@ -4,7 +4,7 @@ include "jolie_deployer_interface.iol"
 
 
 outputPort JolieDeployer {
-Location: "socket://35.228.114.154:8000/"
+Location: "socket://35.228.198.20:8000/"
 Protocol: http
 Interfaces: Jolie_Deployer_Interface
 }
