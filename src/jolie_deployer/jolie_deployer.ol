@@ -63,7 +63,19 @@ spec:
       - name: " + token + "
         image: joelhandig/cloud_server:latest
         ports:
-        - containerPort: 8000\n",
+        - containerPort: 8000
+        livenessProbe:
+          exec:
+            command:
+            - diff -q -b <(curl -s http://localhost:1/health) <(echo 'true')
+          initialDelaySeconds: 60
+          periodSeconds: 10\n",
+        // livenessProbe:
+        // httpGet:
+        //   path: /health
+        //   port: 1
+        // initialDelaySeconds: 70
+        // periodSeconds: 10\n",
       .filename = "deployment.yaml"
     } )();
 
@@ -74,6 +86,9 @@ metadata:
   name: service" + token + "
 spec:
   ports:
+  - name: health
+    port: 1
+    targetPort: 1
   - name: host
     port: 8000
     targetPort: 8000\n";
