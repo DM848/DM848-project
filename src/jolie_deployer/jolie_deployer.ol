@@ -41,10 +41,10 @@ main
 
         token = new;    //unique token that is used inside the cluster to
                         //identify this service + deployment
-            
-        //save the program, to be returned when the service asks for it            
-        writeFile@File({.content = request.program, .filename = token + ".ol"})(); 
-        
+
+        //save the program, to be returned when the service asks for it
+        writeFile@File({.content = request.program, .filename = token + ".ol"})();
+
 
         writeFile@File ({
       .content =
@@ -72,13 +72,17 @@ spec:
         - name: TOKEN
           value: " + token + "
         ports:
-        - containerPort: 8000
-        livenessProbe:
-          exec:
-            command:
-            - diff -q -b <(curl -s http://localhost:1/health) <(echo 'true')
-          initialDelaySeconds: 60
-          periodSeconds: 10\n",
+        - containerPort: 8000\n",
+// health check first try:
+
+        // livenessProbe:
+        //   exec:
+        //     command:
+        //     - diff -q -b <(curl -s http://localhost:1/health) <(echo 'true')
+        //   initialDelaySeconds: 60
+        //   periodSeconds: 10\n",
+
+// health check second try:
         // livenessProbe:
         // httpGet:
         //   path: /health
@@ -217,13 +221,13 @@ spec:
         println@Console("health check")();
         resp = "i'm alive\n"
     }]
-    
-    
+
+
     [getProgram(token)(program){
         println@Console("some user service is asking for a program")();
-        
+
         readFile@File( { .filename = token + ".ol" } )( program )
-        
+
     }]
 
 

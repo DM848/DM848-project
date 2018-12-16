@@ -34,6 +34,6 @@ main
 
   [health()()
   {
-    statusCode = 200
+    statusCode = 200 // this sets the http response status code
   } ]
 }
