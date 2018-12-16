@@ -29,4 +29,15 @@ This is the one that we are building from now on (30 nov)
 Problems that we have not solved yet are:
 * If the user wants more then one replica, the deployment will be replicated. If we then load the jolie program in that deployment, we are not sure of which of the replicas the load balancer will choose, and it will only chose one of them. If the user tries to use the service, and is directed to a replica that does not have the jolie program loaded, then there will be a problem. This is why we need to embed the program when the docker image is started, but the docker image does not have access to that program.
     * Possible solution: The **jolie-creator** offers a way of retrieving a jolie program, that the dockerfile can call to get the program. Possible security hole here?
-    
+
+
+##Version 3:
+* The **Jolie-deployer** is running as a jolie program in the google cloud. It is authenticated against the cluster and can run `kubectl` commands. The program listens to users that wants to deploy a service. The interactions happen like this:
+1. User tells **jolie-deployer** that it wants to load a new service. It tells it what ports to use, name of service, number of replicas along with the program and some other data.
+2. The **jolie-deployer** generates a new token for this service. Writes the file to disk, using `<token>.ol` as filename. Writes `deployment.yaml` and `service.yaml` to disc after the user specification. NOTE `imagePullPolicy: Always`. Also note that the token is set as an enviroment variable in the new deployment. This `deployment.yaml` uses **cloud_server** as it's image.
+3. **jolie-deployer** starts up the new service and deployment.
+4. Upon startup, the **cloud_server** asks **jolie-deployer** what program it should run, querying with the token.
+5. **jolie-deployer** reads from disc with the filename specified. Returns the program.
+6. **cloud_server** embeds and runs the user jolie-program.
+
+This is done so that when a user wants several replicas, the program is embedded in all of them.

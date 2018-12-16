@@ -10,14 +10,10 @@ interface PrintInterface {
 
 inputPort PrintService
 {
-    Location: "socket://localhost:400/"
+    Location: "socket://localhost:4000/"
     Protocol: http {.format = "raw"}
     Interfaces: PrintInterface
 }
-
-
-
-
 
 
 main

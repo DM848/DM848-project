@@ -9,6 +9,7 @@ RUN apk add bash
 
 ADD cloud_server.ol .
 ADD cloud_server.iol .
+ADD jolie_deployer_interface.iol .
 
 #WORKDIR DM848-project/src/embedding_jolie
 

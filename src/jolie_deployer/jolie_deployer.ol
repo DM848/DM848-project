@@ -29,8 +29,9 @@ Interfaces: CloudServerIface
 inputPort Jolie_Deployer {
 Location: "socket://localhost:8000/"
 Protocol: http { .format = "raw" }
-Interfaces: Jolie_Deployer_Interface
+Interfaces: Jolie_Deployer_Interface, User_Service_Interface
 }
+
 
 
 main
@@ -40,6 +41,10 @@ main
 
         token = new;    //unique token that is used inside the cluster to
                         //identify this service + deployment
+            
+        //save the program, to be returned when the service asks for it            
+        writeFile@File({.content = request.program, .filename = token + ".ol"})(); 
+        
 
         writeFile@File ({
       .content =
@@ -62,6 +67,10 @@ spec:
       containers:
       - name: " + token + "
         image: joelhandig/cloud_server:latest
+        imagePullPolicy: Always
+        env:
+        - name: TOKEN
+          value: " + token + "
         ports:
         - containerPort: 8000
         livenessProbe:
@@ -146,6 +155,7 @@ spec:
 
 
 
+/*  DONT DO THIS HERE, THE CLOUD_SERVER IMAGE WILL ASK FOR PROGRAM
 
     //update the output port to point to the new wrapper
     MyOutput.location = "socket://" + PubIP + ":8000/";
@@ -161,7 +171,7 @@ spec:
     //delete@File("deployment.yaml")();
     //delete@File("service.yaml")();
 
-
+*/
 
     answer.ip = string(PubIP);
     answer.token = token
@@ -206,6 +216,14 @@ spec:
     [health()(resp){
         println@Console("health check")();
         resp = "i'm alive\n"
+    }]
+    
+    
+    [getProgram(token)(program){
+        println@Console("some user service is asking for a program")();
+        
+        readFile@File( { .filename = token + ".ol" } )( program )
+        
     }]
 
 
