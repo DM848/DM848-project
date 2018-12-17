@@ -18,12 +18,6 @@ outputPort LoggerService {
 }
 */
 
-outputPort MyOutput {
-//Location: "socket://35.228.66.168:8080/"
-//Location: "socket://localhost:8080"
-Protocol: sodep
-Interfaces: CloudServerIface
-}
 
 
 inputPort Jolie_Deployer {
@@ -139,17 +133,15 @@ spec:
         cmdstring = "kubectl describe service service" + token;
         exec@Exec(cmdstring)(response);
 
-        //println@Console(response)();
 
         item = string(response);
         item.regex = "(?s).*(Ingress:     [0-9]*.[0-9]*.[0-9]*.[0-9]*)(?s).*";
 
         match@StringUtils(item)(matches);
 
-        sleep@Time(1000)();
+        sleep@Time(3000)();
         println@Console("wating for IP...")()
     };
-    //println@Console(matches.group[1])();
 
     println@Console(matches.group[1])();
 
@@ -160,23 +152,7 @@ spec:
 
 
 
-/*  DONT DO THIS HERE, THE CLOUD_SERVER IMAGE WILL ASK FOR PROGRAM
 
-    //update the output port to point to the new wrapper
-    MyOutput.location = "socket://" + PubIP + ":8000/";
-
-    //send user program to newly created wrapper
-    load@MyOutput({
-          .program = string(request.program)
-    })(message);
-
-    println@Console(message)();
-
-    //delete the yaml-files that were used
-    //delete@File("deployment.yaml")();
-    //delete@File("service.yaml")();
-
-*/
 
     answer.ip = string(PubIP);
     answer.token = token
@@ -197,9 +173,6 @@ spec:
 
         println@Console("Im undeploying")();
 
-
-        //We need to get the token that was created when the program was loaded.
-        //for now, assume that the user has it.
 
         //NOTE maybe we should check that the program that should be undeployed
         // matches one that exists, so check the tags/ip in the deployment
