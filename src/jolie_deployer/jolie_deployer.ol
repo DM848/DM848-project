@@ -49,13 +49,13 @@ main
         {
             stringhealthcheck =         
 "        livenessProbe:
-                  exec:
-                    command:
-                    - /bin/sh
-                    - -c
-                    - /alive.sh
-                  initialDelaySeconds: 15
-                  periodSeconds: 10\n"
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - /alive.sh
+          initialDelaySeconds: 15
+          periodSeconds: 10\n"
         }
         else
         {
@@ -82,7 +82,7 @@ spec:
     spec:
       containers:
       - name: " + token + "
-        image: joelhandig/cloud_server:health
+        image: joelhandig/cloud_server:latest
         imagePullPolicy: Always
         env:
         - name: TOKEN
