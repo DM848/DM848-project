@@ -5,11 +5,12 @@ execution { sequential }
 
 interface MyIface {
 RequestResponse:
-  currentTime(void)(undefined)
+  currentTime(void)(undefined),
+  crash(void)(void)
 }
 
 inputPort MyInput {
-Location: "socket://localhost:400/"
+Location: "socket://localhost:4000/"
 Protocol: http {.format = "raw"}
 Interfaces: MyIface
 }
@@ -20,21 +21,34 @@ RequestResponse:
 }
 
 inputPort Health {
-Location: "socket://localhost:1/"
+Location: "socket://localhost:4001/"
 Protocol: http {.format = "raw"/*; .statusCode -> statusCode*/}
 Interfaces: Health
 }
 
+init
+{
+    global.health = "true"
+}
 
 main
 {
   [ currentTime()( response ) {
     getCurrentDateTime@Time()( response )
   } ]
+  
+  
+  [crash()(){
+      while(true)
+      {
+          println@Console("Staying busy - doing deadlocks")()
+      }
+  }
+  
+  ]
 
-  [health()(health)
+  [health()(resp)
   {
-      health = "true";
-    statusCode = 200 // this sets the http response status code
+    resp = "true"
   } ]
 }

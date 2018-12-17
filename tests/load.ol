@@ -30,6 +30,8 @@ main
     load@JolieDeployer({
       .user = "Kurt",
       .name = "kurtsPrinterService",
+    //  .healthcheck = true,
+      .healthcheck = true,
       .manifest = "Jolie",
       .replicas = replicas,
       .program = program,

@@ -14,9 +14,26 @@ Protocol: http {.format = "raw"}
 Interfaces: MyIface
 }
 
+interface Health {
+RequestResponse:
+  health(void)(void)
+}
+
+inputPort Health {
+Location: "socket://localhost:4001/"
+Protocol: http {.format = "raw"; .statusCode -> statusCode}
+Interfaces: Health
+}
+
+
 main
 {
   [ currentTime()( response ) {
     getCurrentDateTime@Time()( response )
+  } ]
+
+  [health()()
+  {
+    println@Console("I'm alive")()
   } ]
 }

@@ -1,14 +1,7 @@
 include "console.iol"
 include "jolie_deployer_interface.iol"
 include "file.iol"
-include "srv-logger.iol"
 
-
-outputPort Log {
-    Location: "socket://35.228.198.20:8180/"
-    Protocol: http { .method = "post" }
-    Interfaces: LoggerInterface
-}
 
 
 outputPort JolieDeployer {

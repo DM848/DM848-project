@@ -1,6 +1,7 @@
 type UserLoadRequest:void {
   .user:string
   .name:string
+  .healthcheck:bool
   .program:string
   .manifest:string
   .replicas:int

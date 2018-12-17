@@ -45,6 +45,22 @@ main
         //save the program, to be returned when the service asks for it
         writeFile@File({.content = request.program, .filename = token + ".ol"})();
 
+        if (request.healthcheck)
+        {
+            stringhealthcheck =         
+"        livenessProbe:
+                  exec:
+                    command:
+                    - /bin/sh
+                    - -c
+                    - /alive.sh
+                  initialDelaySeconds: 15
+                  periodSeconds: 10\n"
+        }
+        else
+        {
+            stringhealthcheck = ""
+        };
 
         writeFile@File ({
       .content =
@@ -66,29 +82,14 @@ spec:
     spec:
       containers:
       - name: " + token + "
-        image: joelhandig/cloud_server:latest
+        image: joelhandig/cloud_server:health
         imagePullPolicy: Always
         env:
         - name: TOKEN
           value: " + token + "
         ports:
-        - containerPort: 8000\n",
-// health check first try:
-
-        // livenessProbe:
-        //   exec:
-        //     command:
-        //     - diff -q -b <(curl -s http://localhost:1/health) <(echo 'true')
-        //   initialDelaySeconds: 60
-        //   periodSeconds: 10\n",
-
-// health check second try:
-        // livenessProbe:
-        // httpGet:
-        //   path: /health
-        //   port: 1
-        // initialDelaySeconds: 70
-        // periodSeconds: 10\n",
+        - containerPort: 8000\n" + 
+        stringhealthcheck, 
       .filename = "deployment.yaml"
     } )();
 
@@ -100,8 +101,8 @@ metadata:
 spec:
   ports:
   - name: health
-    port: 1
-    targetPort: 1
+    port: 4001
+    targetPort: 4001
   - name: host
     port: 8000
     targetPort: 8000\n";
