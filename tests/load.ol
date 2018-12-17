@@ -14,7 +14,6 @@ Interfaces: Jolie_Deployer_Interface
 main
 {
 
-
     //read program from file, put in variable program
     readFile@File( { .filename = args[0] } )( program );
     
@@ -25,13 +24,24 @@ main
     } else{
         replicas = int(args[1])
     };
+    
+    if (! is_defined(args[2]))
+    {
+        hc = false
+    } else{
+        if (args[2] == 1){
+            hc = true
+        } else{
+            hc = false
+        }
+    };
 
     //load program in the cluster
     load@JolieDeployer({
       .user = "Kurt",
       .name = "kurtsPrinterService",
     //  .healthcheck = true,
-      .healthcheck = true,
+      .healthcheck = hc,
       .manifest = "Jolie",
       .replicas = replicas,
       .program = program,

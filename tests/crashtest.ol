@@ -5,7 +5,7 @@ execution { sequential }
 
 interface MyIface {
 RequestResponse:
-  currentTime(void)(undefined),
+  print(void)(string),
   crash(void)(void)
 }
 
@@ -33,8 +33,8 @@ init
 
 main
 {
-  [ currentTime()( response ) {
-    getCurrentDateTime@Time()( response )
+  [ print()( response ) {
+    response = "This is from server"
   } ]
   
   

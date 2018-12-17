@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-resp=$(jolie load.ol user_server.ol 3)
+resp=$(jolie load.ol user_server.ol 3 0)
 
 stringarray=($resp)
 
@@ -36,7 +36,7 @@ done
 jolie unload.ol $token
 sleep 3
 
-message=$(curl http://$ip:400/print --max-time 5 2> /dev/null)
+message=$(curl http://$ip:4000/print --max-time 5 2> /dev/null)
 
 if [ "$message" != "This is from server" ]; then 
     echo "Service undeployed" 
