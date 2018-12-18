@@ -174,19 +174,20 @@ spec:
         exec@Exec("kubectl delete deployment deployment"+ request.token + " --grace-period=" + request.gracePeriod)();
         exec@Exec("kubectl delete service service" + request.token)();
 
-
+/*
         //remove file
         install( IOException => 
             println@Console( "File could not be removed" )()
         );
         delete@File(request.token + ".ol")(ret);
-        
+        */
         
         //log action
         logentry.service = "jolie-deployer";
         logentry.info = "Unloaded service, user: " + request.user + ", token: " + request.token;
         logentry.level = 5;
         set@Logger(logentry)()
+        
         
     }]
 
