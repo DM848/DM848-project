@@ -5,8 +5,6 @@ include "jolie_deployer_interface.iol"
 include "file.iol"
 include "time.iol"
 include "string_utils.iol"
-include "cloud_server_iface.iol"
-include "srv-logger.iol"
 
 execution { concurrent }  
 
