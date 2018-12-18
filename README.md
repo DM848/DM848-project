@@ -31,7 +31,7 @@ Problems that we have not solved yet are:
     * Possible solution: The **jolie-creator** offers a way of retrieving a jolie program, that the dockerfile can call to get the program. Possible security hole here?
 
 
-##Version 3:
+## Version 3:
 * The **Jolie-deployer** is running as a jolie program in the google cloud. It is authenticated against the cluster and can run `kubectl` commands. The program listens to users that wants to deploy a service. The interactions happen like this:
 1. User tells **jolie-deployer** that it wants to load a new service. It tells it what ports to use, name of service, number of replicas along with the program and some other data.
 2. The **jolie-deployer** generates a new token for this service. Writes the file to disk, using `<token>.ol` as filename. Writes `deployment.yaml` and `service.yaml` to disc after the user specification. NOTE `imagePullPolicy: Always`. Also note that the token is set as an enviroment variable in the new deployment. This `deployment.yaml` uses **cloud_server** as it's image.
@@ -41,3 +41,5 @@ Problems that we have not solved yet are:
 6. **cloud_server** embeds and runs the user jolie-program.
 
 This is done so that when a user wants several replicas, the program is embedded in all of them.
+
+The user based health check can be submitted with setting `healthcheck = true` in the `userloadrequest`. The health check must listen on **localhost:4001/health**, and if it returns anything else but `true`, then the pod is considered unhealthy.
