@@ -6,17 +6,10 @@ include "file.iol"
 include "time.iol"
 include "string_utils.iol"
 include "cloud_server_iface.iol"
-//include "srv-logger.iol"
+include "srv-logger.iol"
 
-execution { concurrent }    //maybe concurrent?
+execution { concurrent }  
 
-/*
-outputPort LoggerService {
-    Location: "socket://logger:8180/"        //where is the service?
-    Protocol: http { .method = "post" }
-    Interfaces: LoggerInterface
-}
-*/
 
 
 
@@ -155,15 +148,15 @@ spec:
 
 
     answer.ip = string(PubIP);
-    answer.token = token
+    answer.token = token;
 
-    /*
+    
     //log action
-    logentry.service: "jolie-deployer";
-    logentry.info: "Loaded service, user: " + request.user;
-    logentry.level: 5;
-    set@LoggerService(logentry)()
-    */
+    logentry.service = "jolie-deployer";
+    logentry.info = "Loaded service, user: " + request.user + ", token: " + token;
+    logentry.level = 5;
+    set@Logger(logentry)()
+    
 
     }]
 
@@ -177,16 +170,24 @@ spec:
         //NOTE maybe we should check that the program that should be undeployed
         // matches one that exists, so check the tags/ip in the deployment
 
+        //undeploy from cluster
         exec@Exec("kubectl delete deployment deployment"+ request.token + " --grace-period=" + request.gracePeriod)();
-        exec@Exec("kubectl delete service service" + request.token)()
+        exec@Exec("kubectl delete service service" + request.token)();
 
-        /*
+
+        //remove file
+        install( IOException => 
+            println@Console( "File could not be removed" )()
+        );
+        delete@File(request.token + ".ol")(ret);
+        
+        
         //log action
-        logentry.service: "jolie-deployer";
-        logentry.info: "Unloaded service, user: " + request.user;
-        logentry.level: 5;
-        set@LoggerService(logentry)()
-        */
+        logentry.service = "jolie-deployer";
+        logentry.info = "Unloaded service, user: " + request.user + ", token: " + request.token;
+        logentry.level = 5;
+        set@Logger(logentry)()
+        
     }]
 
 
