@@ -150,13 +150,13 @@ spec:
     answer.ip = string(PubIP);
     answer.token = token;
 
-    
+    /*
     //log action
     logentry.service = "jolie-deployer";
     logentry.info = "Loaded service, user: " + request.user + ", token: " + token;
     logentry.level = 5;
     set@Logger(logentry)()
-    
+    */
 
     }]
 
@@ -182,12 +182,13 @@ spec:
         delete@File(request.token + ".ol")(ret);
         */
         
+        /*
         //log action
         logentry.service = "jolie-deployer";
         logentry.info = "Unloaded service, user: " + request.user + ", token: " + request.token;
         logentry.level = 5;
         set@Logger(logentry)()
-        
+        */
         
     }]
 
